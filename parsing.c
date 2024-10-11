@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/11 20:12:32 by bouhammo          #+#    #+#             */
+/*   Updated: 2024/10/11 20:12:34 by bouhammo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	ft_isdigit(int c)
@@ -73,30 +85,5 @@ void		data_init( t_table  *table)
 		i++;
 	}
 	if ( pthread_mutex_init(&table->print_lock, NULL) !=0)
-			printf_error("Mutex init  of forks[i] is failed");	
-	
-		// printffff(table);
+			printf_error("Mutex init  of forks[i] is failed");
 }
-
-// void 	printffff(t_table *table)
-// {
-// 	int i =0;
-// 	printf("table num_philo = %d \n", table->num_philo);
-// 	printf("table time to die = %u\n", table->time_to_die);
-// 	printf("table time to est  = %u\n", table->time_to_eat);
-// 	printf("table time to sleep = %u\n", table->time_to_sleep);
-// 	printf("table meals reauired  = %d\n",  table->meals_required);
-// 	printf("table philo = %p \n\n", table->philos);
-
-// 	while (i  < table->num_philo)
-// 	{
-// 		printf("		philo id = %d \n", table->philos[i].id);
-// 		printf("		philo meals_eaten = %d \n", table->philos[i].meals_eaten);
-// 		printf("		philo last_meal_time = %ld \n", table->philos[i].last_meal_time);
-// 		printf("		philo table = %p \n", table->philos[i].table);
-// 		printf("		philo fork id left = %d \n", table->philos[i].fork_id_left);
-// 		printf("		philo fork id right = %d \n", table->philos[i].fork_id_right);
-// 		printf("		addres of mutex fork = %d || %p \n\n" , i , &table->forks[i]);
-// 		i++;
-// 	}
-// }
