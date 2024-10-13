@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:18 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/11 20:12:21 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/12 21:52:30 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ unsigned int  get_time()
 	return ( (av.tv_sec * 1000) + (av.tv_usec / 1000));
 }
 
- void ft_usleep(unsigned int time)
+void ft_usleep(unsigned int time)
 {
 	unsigned int start = get_time();
 	while((get_time() - start) < time)
@@ -54,11 +54,3 @@ void 	print_output( t_philo *philo, char *status)
 		
 	}
 }
-
-// void print_is_die(t_table *table)
-// {
-// 	pthread_mutex_lock(&table->print_lock);
-// 	printf(RED "Time %u "RESET" | " YELLOW "Philo id = %d" RESET " | " CYAN "status : %s\n", get_time()- table->start_time, table->philos->id, "-<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>> is died");
-// 	pthread_mutex_unlock(&table->print_lock);
-
-// }

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:42:32 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/11 20:12:44 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/12 22:49:39 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_philo
 	int 			fork_id_left;
 	int 			fork_id_right;
 	// unsigned int 	time;
-	pthread_mutex_t time_mutex;
+	// pthread_mutex_t time_mutex;
 	t_table 		*table;
 } t_philo;
 
@@ -64,10 +64,10 @@ struct s_table
 	pthread_mutex_t *forks;
 	pthread_mutex_t print_lock;
 	pthread_mutex_t table_ready;
-	pthread_mutex_t print_is_die;
+	pthread_mutex_t stop_simlation;
 	pthread_mutex_t stop_mutex;
-	pthread_mutex_t incr;
-	pthread_mutex_t inct_meals_eaten;
+	pthread_mutex_t incr_count;
+	// pthread_mutex_t inct_meals_eaten;
 	int a;
 };
 
@@ -87,6 +87,13 @@ void			thinking(t_philo *philo);
 void			ft_usleep(unsigned int time);
 void			print_output( t_philo *philo, char *status);
 // void 			print_is_die(t_table *s_table);
+
+
+bool 			read_variables(pthread_mutex_t *mutex, bool *value);
+long 			get_long(pthread_mutex_t *mutex, long *value);
+void 			increment(pthread_mutex_t *mutex, int *val);
+void			setting_variables(pthread_mutex_t *mutex,long *dest, long value);
+void 			change_boolian(pthread_mutex_t *mutex, bool *dest, bool value);
 
 
 #endif

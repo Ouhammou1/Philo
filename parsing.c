@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:32 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/11 20:12:34 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/12 22:48:50 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,36 @@ void	parsing_data(t_table *table , int  ac , char **av)
 		table->meals_required = -1;
 }
 
-void		data_init( t_table  *table)
+void	init_table(t_table  *table )
 {
-	int i;
-
 	table->philos = save_memory(sizeof(t_philo) * table->num_philo);
 	table->forks  = save_memory(sizeof(pthread_mutex_t) * table->num_philo);
 	table->simulation_running = 1;
 	table->philo_is_die = false;
 	table->ready = false;
 	
-	pthread_mutex_init(&table->stop_mutex, NULL);
-	pthread_mutex_init(&table->table_ready, NULL);
+	if(pthread_mutex_init(&table->stop_mutex, NULL) != 0)
+		printf_error("Mutex init of print_lock is failed");
+
+	if(pthread_mutex_init(&table->table_ready, NULL) != 0)
+		printf_error("Mutex init of print_lock is failed");
+
 	if (pthread_mutex_init(&table->print_lock, NULL) != 0)
 		printf_error("Mutex init of print_lock is failed");
 
-	if(pthread_mutex_init(&table->print_is_die, NULL)!= 0)
+	if(pthread_mutex_init(&table->stop_simlation, NULL)!= 0)
 		printf_error("Mutex init of print_lock is failed");
+
+	if(pthread_mutex_init(&table->incr_count, NULL) != 0)
+		printf_error("Mutex init of print_lock is failed");
+}
+
+void		data_init( t_table  *table)
+{
+	int i;
+
+
+	init_table(table);
 
 	
 	i = 0;
@@ -76,14 +89,9 @@ void		data_init( t_table  *table)
 		table->philos[i].table = table;
 		table->philos[i].fork_id_left = i;
 		table->philos[i].fork_id_right = (i + 1) % table->num_philo;
-		// table->philos[i].time = 0;
-		if(pthread_mutex_init(&table->philos[i].time_mutex, NULL) != 0)
-			printf_error("Mutex init  of forks[i] is failed");	
 
 		if (pthread_mutex_init(&table->forks[i], NULL) !=0)
 			printf_error("Mutex init  of forks[i] is failed");	
 		i++;
 	}
-	if ( pthread_mutex_init(&table->print_lock, NULL) !=0)
-			printf_error("Mutex init  of forks[i] is failed");
 }
