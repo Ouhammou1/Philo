@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:32 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/12 22:48:50 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:18:19 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,32 @@ int	ft_isdigit(int c)
 
 {
 	if (c >= 48 && c <= 57)
-	{ 
+	{
 		return (1);
 	}
 	return (0);
 }
 
-void	parsing_data(t_table *table , int  ac , char **av)
+void	parsing_data(t_table *table, int ac, char **av)
 {
-	int  	i;
+	int	i;
+	int	j;
 
 	i = 1;
-	while (i < ac )
+	while (i < ac)
 	{
-		int j =0;
+		j = 0;
 		while (av[i][j] != '\0')
 		{
-			if(ft_isdigit(av[i][j]) == 0)
+			if (ft_isdigit(av[i][j]) == 0)
 				printf_error("Enter Numbers Please !");
 			j++;
 		}
 		i++;
 	}
-	table->num_philo     = ft_atoi(av[1]);
-	table->time_to_die   = ft_atoi(av[2]);
-	table->time_to_eat   = ft_atoi(av[3]);
+	table->num_philo = ft_atoi(av[1]);
+	table->time_to_die = ft_atoi(av[2]);
+	table->time_to_eat = ft_atoi(av[3]);
 	table->time_to_sleep = ft_atoi(av[4]);
 	if (av[5])
 		table->meals_required = ft_atoi(av[5]);
@@ -48,38 +49,32 @@ void	parsing_data(t_table *table , int  ac , char **av)
 		table->meals_required = -1;
 }
 
-void	init_table(t_table  *table )
+void	init_table(t_table *table)
 {
 	table->philos = save_memory(sizeof(t_philo) * table->num_philo);
-	table->forks  = save_memory(sizeof(pthread_mutex_t) * table->num_philo);
+	table->forks = save_memory(sizeof(pthread_mutex_t) * table->num_philo);
 	table->simulation_running = 1;
 	table->philo_is_die = false;
 	table->ready = false;
-	
-	if(pthread_mutex_init(&table->stop_mutex, NULL) != 0)
+	if (pthread_mutex_init(&table->stop_mutex, NULL) != 0)
 		printf_error("Mutex init of print_lock is failed");
-
-	if(pthread_mutex_init(&table->table_ready, NULL) != 0)
+	if (pthread_mutex_init(&table->table_ready, NULL) != 0)
 		printf_error("Mutex init of print_lock is failed");
-
 	if (pthread_mutex_init(&table->print_lock, NULL) != 0)
 		printf_error("Mutex init of print_lock is failed");
-
-	if(pthread_mutex_init(&table->stop_simlation, NULL)!= 0)
+	if (pthread_mutex_init(&table->stop_simlation, NULL) != 0)
 		printf_error("Mutex init of print_lock is failed");
-
-	if(pthread_mutex_init(&table->incr_count, NULL) != 0)
+	if (pthread_mutex_init(&table->stop_simlation_two, NULL) != 0)
+		printf_error("Mutex init of print_lock is failed");
+	if (pthread_mutex_init(&table->incr_count, NULL) != 0)
 		printf_error("Mutex init of print_lock is failed");
 }
 
-void		data_init( t_table  *table)
+void	data_init(t_table *table)
 {
-	int i;
-
+	int	i;
 
 	init_table(table);
-
-	
 	i = 0;
 	while (i < table->num_philo)
 	{
@@ -89,9 +84,8 @@ void		data_init( t_table  *table)
 		table->philos[i].table = table;
 		table->philos[i].fork_id_left = i;
 		table->philos[i].fork_id_right = (i + 1) % table->num_philo;
-
-		if (pthread_mutex_init(&table->forks[i], NULL) !=0)
-			printf_error("Mutex init  of forks[i] is failed");	
+		if (pthread_mutex_init(&table->forks[i], NULL) != 0)
+			printf_error("Mutex init  of forks[i] is failed");
 		i++;
 	}
 }

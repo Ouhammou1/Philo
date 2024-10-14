@@ -12,45 +12,48 @@
 
 #include "philo.h"
 
-void	printf_error(char 	*str)
+void	printf_error(char *str)
 {
 	printf(RED "%s\n" RESET, str);
 	exit(1);
 }
 
-void 	*save_memory(size_t size)
+void	*save_memory(size_t size)
 {
-	void *ptr;
+	void	*ptr;
 
 	ptr = malloc(size);
-	if(!ptr)
+	if (!ptr)
 		printf_error("Malloc failed");
 	return (ptr);
 }
 
-unsigned int  get_time()
+unsigned int	get_time(void)
 {
-	struct timeval av;	
-	gettimeofday(&av  ,NULL);
-	return ( (av.tv_sec * 1000) + (av.tv_usec / 1000));
+	struct timeval	av;
+
+	gettimeofday(&av, NULL);
+	return ((av.tv_sec * 1000) + (av.tv_usec / 1000));
 }
 
-void ft_usleep(unsigned int time)
+void	ft_usleep(unsigned int time)
 {
-	unsigned int start = get_time();
-	while((get_time() - start) < time)
+	unsigned int	start;
+
+	start = get_time();
+	while ((get_time() - start) < time)
 	{
 		usleep(500);
 	}
 }
 
-void 	print_output( t_philo *philo, char *status)
+void	print_output(t_philo *philo, char *status)
 {
-	if(!philo->table->a)
+	if (!philo->table->a)
 	{
 		pthread_mutex_lock(&philo->table->print_lock);
-		printf("%u %d %s\n", get_time() - philo->table->start_time, philo->id, status);
+		printf("%u %d %s\n", get_time() - philo->table->start_time, philo->id,
+			status);
 		pthread_mutex_unlock(&philo->table->print_lock);
-		
 	}
 }

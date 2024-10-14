@@ -12,9 +12,9 @@
 
 #include "philo.h"
 
-bool 	read_variables(pthread_mutex_t *mutex, bool *value)
+bool	read_variables(pthread_mutex_t *mutex, bool *value)
 {
-	bool 	type;
+	bool	type;
 
 	pthread_mutex_lock(mutex);
 	type = *value;
@@ -22,34 +22,33 @@ bool 	read_variables(pthread_mutex_t *mutex, bool *value)
 	return (type);
 }
 
-long get_long(pthread_mutex_t *mutex, long *value)
+long	get_long(pthread_mutex_t *mutex, long *value)
 {
-	long res;
+	long	res;
+
 	pthread_mutex_lock(mutex);
 	res = *value;
 	pthread_mutex_unlock(mutex);
 	return (res);
 }
 
-void increment(pthread_mutex_t *mutex, int *val)
+void	increment(pthread_mutex_t *mutex, int *val)
 {
 	pthread_mutex_lock(mutex);
 	(*val)++;
 	pthread_mutex_lock(mutex);
-
 }
 
-void	setting_variables(pthread_mutex_t *mutex,long *dest, long value)
+void	setting_variables(pthread_mutex_t *mutex, long *dest, long value)
 {
 	pthread_mutex_lock(mutex);
 	*dest = value;
 	pthread_mutex_unlock(mutex);
 }
 
-void 	change_boolian(pthread_mutex_t *mutex, bool *dest, bool value)
+void	change_boolian(pthread_mutex_t *mutex, bool *dest, bool value)
 {
 	pthread_mutex_lock(mutex);
 	*dest = value;
 	pthread_mutex_unlock(mutex);
 }
-
