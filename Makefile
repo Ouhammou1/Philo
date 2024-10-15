@@ -6,7 +6,7 @@
 #    By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/11 20:12:28 by bouhammo          #+#    #+#              #
-#    Updated: 2024/10/14 21:28:22 by bouhammo         ###   ########.fr        #
+#    Updated: 2024/10/15 20:41:44 by bouhammo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,11 @@ CFILES= parsing.c main.c  ft_atoi.c functions.c start_simulation.c change_in_var
 OBJS= $(CFILES:.c=.o)
 NAME = philo
 
-#-fsanitize=thread -g 
+
 all: $(NAME)
 
 $(NAME):$(OBJS)
-	$(CC) $(FLAGS)  $(OBJS) -o $(NAME)
+	$(CC) $(FLAGS) -fsanitize=thread -g   $(OBJS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJS)

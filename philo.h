@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:42:32 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/15 19:42:02 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:37:00 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,7 @@ bool					read_variables(pthread_mutex_t *mutex, bool *value);
 void					ft_free(t_table *table);
 void					ft_print(char *ptr);
 void					ft_destroy_mutex(t_table *table);
-
-// // printf("%u %d %s\n", get_time() - table->start_time, table->philos->id,
-// 	"is thinking");
-// 	// 		printf("%u %d %s\n", get_time() - table->start_time,
-// 				table->philos->id,
-// 			"has taken a fork");
-// 			// 		printf("%u %d %s\n", get_time()
-// 						- table->start_time,table->philos->id,
-// 			"is died");
+void					handle_one_philo(t_table *table);
+int						check_is_valid(int ac, char **av);
 
 #endif

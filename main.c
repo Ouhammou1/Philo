@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:23 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/15 19:35:54 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:43:13 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	handle_one_philo(t_table *table)
 	pthread_mutex_lock(&table->forks[0]);
 	print_output(table->philos, "is thinking");
 	print_output(table->philos, "has taken a fork");
+	ft_usleep(table->time_to_die);
 	print_output(table->philos, "is died");
 	pthread_mutex_unlock(&table->forks[0]);
 	return ;
@@ -74,7 +75,7 @@ int	main(int ac, char **av)
 {
 	t_table	table;
 
-	// atexit(toto);
+	atexit(toto);
 	if (ac == 6 || ac == 5)
 	{
 		if (parsing_data(&table, ac, av) == 1)
