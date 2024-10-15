@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:32 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/14 19:18:19 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:35:57 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-void	parsing_data(t_table *table, int ac, char **av)
+int	parsing_data(t_table *table, int ac, char **av)
 {
 	int	i;
 	int	j;
@@ -34,7 +34,10 @@ void	parsing_data(t_table *table, int ac, char **av)
 		while (av[i][j] != '\0')
 		{
 			if (ft_isdigit(av[i][j]) == 0)
-				printf_error("Enter Numbers Please !");
+			{
+				printf_error("Enter Numbers Please  !");
+				return (1);
+			}
 			j++;
 		}
 		i++;
@@ -47,6 +50,7 @@ void	parsing_data(t_table *table, int ac, char **av)
 		table->meals_required = ft_atoi(av[5]);
 	else
 		table->meals_required = -1;
+	return (0);
 }
 
 void	init_table(t_table *table)

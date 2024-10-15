@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:42:32 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/14 19:17:37 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:42:02 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ typedef struct s_philo
 	pthread_t			thread;
 	int					fork_id_left;
 	int					fork_id_right;
-	// unsigned int 	time;
-	// pthread_mutex_t time_mutex;
 	t_table				*table;
 }						t_philo;
 
@@ -64,33 +62,50 @@ struct					s_table
 	pthread_mutex_t		stop_simlation_two;
 	pthread_mutex_t		stop_mutex;
 	pthread_mutex_t		incr_count;
-	// pthread_mutex_t inct_meals_eaten;
 	int					a;
 };
 
-long long int			ft_atoi(const char *str);
-void					parsing_data(t_table *table, int ac, char **av);
-void					printf_error(char *str);
-void					*save_memory(size_t size);
-void					data_init(t_table *table);
-// void 			printf(t_table *table);
-unsigned int			get_time(void);
-void					start_simulation(t_table *table);
-void					*philo_life_cycle(void *philo);
-// void			print_status(t_philo *philo , char *status , int id_fork);
-void					eating(t_philo *philo);
-void					sleeping(t_philo *philo);
+void					*philo_life_cycle(void *data);
 void					thinking(t_philo *philo);
-void					ft_usleep(unsigned int time);
-void					print_output(t_philo *philo, char *status);
-// void 			print_is_die(t_table *s_table);
+void					sleeping(t_philo *philo);
+void					eating(t_philo *philo);
+void					start_simulation(t_table *table);
+void					monitor_simulation(t_table *table);
+void					check_meals_required(t_table *table);
+void					start_simulation_threads(t_table *table);
 
-bool					read_variables(pthread_mutex_t *mutex, bool *value);
-long					get_long(pthread_mutex_t *mutex, long *value);
-void					increment(pthread_mutex_t *mutex, int *val);
-void					setting_variables(pthread_mutex_t *mutex, long *dest,
-							long value);
+void					data_init(t_table *table);
+void					init_table(t_table *table);
+int						parsing_data(t_table *table, int ac, char **av);
+int						ft_isdigit(int c);
+
+void					print_output(t_philo *philo, char *status);
+void					ft_usleep(unsigned int time);
+unsigned int			get_time(void);
+void					*save_memory(size_t size);
+void					printf_error(char *str);
+
+long long int			ft_atoi(const char *str);
+
 void					change_boolian(pthread_mutex_t *mutex, bool *dest,
 							bool value);
+void					setting_variables(pthread_mutex_t *mutex, long *dest,
+							long value);
+void					increment(pthread_mutex_t *mutex, int *val);
+long					get_long(pthread_mutex_t *mutex, long *value);
+bool					read_variables(pthread_mutex_t *mutex, bool *value);
+
+void					ft_free(t_table *table);
+void					ft_print(char *ptr);
+void					ft_destroy_mutex(t_table *table);
+
+// // printf("%u %d %s\n", get_time() - table->start_time, table->philos->id,
+// 	"is thinking");
+// 	// 		printf("%u %d %s\n", get_time() - table->start_time,
+// 				table->philos->id,
+// 			"has taken a fork");
+// 			// 		printf("%u %d %s\n", get_time()
+// 						- table->start_time,table->philos->id,
+// 			"is died");
 
 #endif

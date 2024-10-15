@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:18 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/12 21:52:30 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:35:57 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	printf_error(char *str)
 {
 	printf(RED "%s\n" RESET, str);
-	exit(1);
+	return ;
 }
 
 void	*save_memory(size_t size)
