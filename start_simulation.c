@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:02 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/16 17:37:12 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:43:35 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	start_simulation_threads(t_table *table)
 {
 	int	i;
 
-	table->a = 0;
+	table->stop = 0;
 	table->start_time = get_time();
 	i = 0;
 	while (i < table->num_philo)
@@ -45,8 +45,9 @@ void	check_meals_required(t_table *table)
 		}
 		if (counter == table->num_philo)
 		{
-			setting_variables(&table->stop_simlation,&table->simulation_running, 0);
-			setting_variables(&table->check_dead,&table->a, 1);
+			setting_variables(&table->stop_simlation,
+				&table->simulation_running, 0);
+			setting_variables(&table->check_dead, &table->stop, 1);
 		}
 	}
 }
@@ -57,24 +58,23 @@ void	monitor_simulation(t_table *table)
 
 	while (table->simulation_running)
 	{
-		i = 0; 
+		i = 0;
 		while (i < table->num_philo)
 		{
-			if (get_time()
-				- table->philos[i].last_meal_time >= table->time_to_die)
+			if (get_time() - table->philos[i].last_meal_time >= table->time_to_die)
 			{
-				setting_variables(&table->check_dead,&table->a, 1);
-				setting_variables(&table->stop_simlation_two,
-					&table->simulation_running, 0);
+				setting_variables(&table->check_dead, &table->stop, 1);
+				setting_variables(&table->stop_simlation_two, &table->simulation_running, 0);
 				pthread_mutex_lock(&table->print_lock);
-				printf("%u %d %s\n", get_time() - table->start_time, table->philos[i].id, "died");
+				printf("%u %d %s\n", get_time() - table->start_time,
+					table->philos[i].id, "died");
 				pthread_mutex_unlock(&table->print_lock);
-				break;
+				break ;
 			}
 			i++;
 		}
-		if (!table->simulation_running)
-			return;
+		if (table->simulation_running == 0)
+			return ;
 		check_meals_required(table);
 	}
 }
@@ -98,12 +98,11 @@ void	*philo_life_cycle(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
+	thinking(philo);
 	if (philo->id % 2 != 0)
-		sleeping(philo);
-	while (get_long(&philo->table->stop_mutex,
-			&philo->table->simulation_running) != 0)
+		usleep(100);
+	while (get_long(&philo->table->stop_mutex, &philo->table->simulation_running) != 0)
 	{
-		thinking(philo);
 		eating(philo);
 		sleeping(philo);
 	}

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:42:32 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/16 17:01:58 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:30:45 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ struct					s_table
 	pthread_mutex_t		stop_mutex;
 	pthread_mutex_t		incr_count;
 	pthread_mutex_t		check_dead;
-	long					a;
+	long				stop;
 };
 
 void					*philo_life_cycle(void *data);

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:32 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/16 17:27:52 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:46:02 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,14 @@ int	parsing_data(t_table *table, int ac, char **av)
 	table->time_to_eat = ft_atoi(av[3]);
 	table->time_to_sleep = ft_atoi(av[4]);
 	if (av[5])
+	{
 		table->meals_required = ft_atoi(av[5]);
+		if(table->meals_required  == 0)
+		{
+			printf_error("Enter Numbers Please  !");
+				return (1);
+		}
+	}
 	else
 		table->meals_required = -1;
 	return (0);
@@ -71,7 +78,6 @@ void	init_table(t_table *table)
 	table->forks = save_memory(sizeof(pthread_mutex_t) * table->num_philo);
 	table->simulation_running = 1;
 	table->philo_is_die = false;
-	// table->ready = false;
 	if (pthread_mutex_init(&table->stop_mutex, NULL) != 0)
 		printf_error("Mutex init of print_lock is failed");
 	if (pthread_mutex_init(&table->table_ready, NULL) != 0)

@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:23 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/16 17:36:02 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:30:52 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_destroy_mutex(t_table *table)
 
 void	handle_one_philo(t_table *table)
 {
-	table->a = 0;
+	table->stop = 0;
 	table->start_time = get_time();
 	pthread_mutex_lock(&table->forks[0]);
 	print_output(table->philos, "is thinking");

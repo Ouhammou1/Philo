@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:18 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/16 17:02:11 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:30:05 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ void	ft_usleep(unsigned int time)
 
 void	print_output(t_philo *philo, char *status)
 {
-	
-	if (!philo->table->a)
+	if (!philo->table->stop)
 	{
 		pthread_mutex_lock(&philo->table->print_lock);
 		printf("%u %d %s\n", get_time() - philo->table->start_time, philo->id,
