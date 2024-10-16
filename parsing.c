@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:32 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/15 20:39:19 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:27:52 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	init_table(t_table *table)
 	table->forks = save_memory(sizeof(pthread_mutex_t) * table->num_philo);
 	table->simulation_running = 1;
 	table->philo_is_die = false;
-	table->ready = false;
+	// table->ready = false;
 	if (pthread_mutex_init(&table->stop_mutex, NULL) != 0)
 		printf_error("Mutex init of print_lock is failed");
 	if (pthread_mutex_init(&table->table_ready, NULL) != 0)
@@ -82,7 +82,7 @@ void	init_table(t_table *table)
 		printf_error("Mutex init of print_lock is failed");
 	if (pthread_mutex_init(&table->stop_simlation_two, NULL) != 0)
 		printf_error("Mutex init of print_lock is failed");
-	if (pthread_mutex_init(&table->incr_count, NULL) != 0)
+	if (pthread_mutex_init(&table->check_dead, NULL) != 0)
 		printf_error("Mutex init of print_lock is failed");
 }
 

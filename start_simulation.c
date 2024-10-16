@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:02 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/14 21:24:16 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:37:12 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	start_simulation_threads(t_table *table)
 			printf_error("Error creating thread");
 		i++;
 	}
-	change_boolian(&table->table_ready, &table->ready, true);
 }
 
 void	check_meals_required(t_table *table)
@@ -46,9 +45,8 @@ void	check_meals_required(t_table *table)
 		}
 		if (counter == table->num_philo)
 		{
-			printf("-----------> all ate\n");
-			setting_variables(&table->stop_simlation,
-				&table->simulation_running, 0);
+			setting_variables(&table->stop_simlation,&table->simulation_running, 0);
+			setting_variables(&table->check_dead,&table->a, 1);
 		}
 	}
 }
@@ -59,21 +57,24 @@ void	monitor_simulation(t_table *table)
 
 	while (table->simulation_running)
 	{
-		i = 0;
+		i = 0; 
 		while (i < table->num_philo)
 		{
 			if (get_time()
 				- table->philos[i].last_meal_time >= table->time_to_die)
 			{
+				setting_variables(&table->check_dead,&table->a, 1);
 				setting_variables(&table->stop_simlation_two,
 					&table->simulation_running, 0);
-				print_output(&table->philos[i], "died");
-				exit(1);
+				pthread_mutex_lock(&table->print_lock);
+				printf("%u %d %s\n", get_time() - table->start_time, table->philos[i].id, "died");
+				pthread_mutex_unlock(&table->print_lock);
+				break;
 			}
 			i++;
 		}
 		if (!table->simulation_running)
-			break ;
+			return;
 		check_meals_required(table);
 	}
 }
@@ -97,8 +98,6 @@ void	*philo_life_cycle(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-	while (!read_variables(&philo->table->table_ready, &philo->table->ready))
-		;
 	if (philo->id % 2 != 0)
 		sleeping(philo);
 	while (get_long(&philo->table->stop_mutex,

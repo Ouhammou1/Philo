@@ -6,7 +6,7 @@
 /*   By: bouhammo <bouhammo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 20:12:23 by bouhammo          #+#    #+#             */
-/*   Updated: 2024/10/15 20:43:13 by bouhammo         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:36:02 by bouhammo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	ft_destroy_mutex(t_table *table)
 		return (ft_print("Failed to destroy mutex\n"));
 	if (pthread_mutex_destroy(&table->stop_simlation_two) != 0)
 		return (ft_print("Failed to destroy mutex\n"));
-	if (pthread_mutex_destroy(&table->incr_count) != 0)
-		return (ft_print("Failed to destroy mutex\n"));
 	i = 0;
 	while (i < table->num_philo)
 	{
@@ -66,7 +64,7 @@ void	handle_one_philo(t_table *table)
 	print_output(table->philos, "is thinking");
 	print_output(table->philos, "has taken a fork");
 	ft_usleep(table->time_to_die);
-	print_output(table->philos, "is died");
+	print_output(table->philos, "died");
 	pthread_mutex_unlock(&table->forks[0]);
 	return ;
 }
@@ -75,7 +73,7 @@ int	main(int ac, char **av)
 {
 	t_table	table;
 
-	atexit(toto);
+	// atexit(toto);
 	if (ac == 6 || ac == 5)
 	{
 		if (parsing_data(&table, ac, av) == 1)
